@@ -21,9 +21,16 @@ async function tryGetResult(args) {
   const result = await octokit.graphql(query, args);
   await waitForRateLimitReset(result);
 
-  const edges = get(result, "repository.ref.target.deployments.edges");
-  if (!edges) return null;
-  return get(edges, `[0].node.latestStatus.environmentUrl`, null);
+  const nodes = get(result, "repository.ref.target.deployments.nodes");
+  if (!nodes) return null;
+  for (let index = 0; index < 3; index++) {
+    const environmentUrl = get(nodes, `[0].latestStatus.environmentUrl`, null);
+    console.log(index, " environmentUrl : ", environmentUrl)
+    if (environmentUrl && JSON.stringify(environmentUrl).includes("web")) {
+      return environmentUrl;
+    }
+  }
+  return null;
 }
 
 async function waitForRateLimitReset(result) {

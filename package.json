@@ -18,19 +18,13 @@
   },
   "homepage": "https://github.com/dorshinar/run-against-deploy-action#readme",
   "dependencies": {
-    "@actions/core": "^1.9.1",
-    "@actions/github": "^4.0.0",
-    "husky": "^4.3.0",
+    "@actions/core": "^1.10.0",
+    "@actions/github": "^5.1.1",
     "lodash": "^4.17.21",
     "lodash-es": "^4.17.21"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "ncc build index.js && git add dist/index.js"
-    }
-  },
   "devDependencies": {
-    "@zeit/ncc": "^0.22.1",
-    "eslint": "^7.10.0"
+    "@vercel/ncc": "^0.32.0",
+    "eslint": "^8.38.0"
   }
 }
